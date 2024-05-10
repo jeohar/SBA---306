@@ -1,20 +1,43 @@
 package sba.sms.services;
 
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import sba.sms.models.Student;
-import sba.sms.utils.CommandLine;
+import sba.sms.services.StudentService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class StudentServiceTest {
+
+    private StudentService studentService;
+
+    @BeforeEach
+    public void setUp() {
+        studentService = new StudentService();
+    }
+
+    @Test
+    public void testCreateStudent() {
+
+        Student student = new Student("johar@gmail.com", "Hasib Johar", "password");
 
 
-class StudentServiceTest {
+        assertDoesNotThrow(() -> studentService.createStudent(student));
 
 
+        Student createdStudent = studentService.getStudentByEmail("johar@gmail.com");
+
+
+        assertNotNull(createdStudent);
+        assertEquals("johar@gmail.com", createdStudent.getEmail());
+        assertEquals("Hasib Johar", createdStudent.getName());
+        assertEquals("password", createdStudent.getPassword());
+    }
+
+    @AfterEach
+    public void tearDown() {
+
+    }
 }

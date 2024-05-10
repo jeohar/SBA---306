@@ -57,6 +57,7 @@ public class HibernateUtil {
     /**
      * Closes the session factory.
      */
+
     public static void shutdown() {
         getSessionFactory().close();
     }
